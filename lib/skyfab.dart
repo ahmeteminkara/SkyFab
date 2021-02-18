@@ -3,19 +3,22 @@ library skyfab;
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:skyfab/setting_button.dart';
-import 'package:skyfab/skyfab_properties.dart';
+
+import 'setting_button.dart';
+import 'skyfab_controller.dart';
+import 'skyfab_properties.dart';
 
 class SkyFab extends StatefulWidget {
   final List<SkyFabSettingButton> buttonList;
   final SkyFabProperties skyFabProperties;
+  final SkyFabController controller;
   final Widget child;
 
-  const SkyFab({
+  SkyFab({
     @required this.child,
     @required this.buttonList,
-    @required this.skyFabProperties,
-  });
+    this.controller,
+  }) : this.skyFabProperties = SkyFabProperties();
 
   @override
   _SkyFabState createState() => _SkyFabState();
@@ -39,6 +42,14 @@ class _SkyFabState extends State<SkyFab> {
   @override
   void initState() {
     super.initState();
+
+    if (widget.controller == null) {
+      print("widget.controller is null");
+    } else {
+      widget.controller.isShowingPanel = this.isShowingPanel;
+      widget.controller.showPanel = this.showPanel;
+      widget.controller.hidePanel = this.hidePanel;
+    }
   }
 
   @override

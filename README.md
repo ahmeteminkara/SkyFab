@@ -13,6 +13,7 @@ dependencies:
 import 'package:skyfab/skyfab.dart';
 import 'package:skyfab/setting_button.dart';
 import 'package:skyfab/skyfab_properties.dart';
+import 'package:skyfab/skyfab_controller.dart';
 ```
 
 
@@ -41,7 +42,12 @@ class SkyFabSettingButton {
 
 ## Variables
 ```java
-List<SkyFabSettingButton> buttons = List();
+final List<SkyFabSettingButton> buttons = List();
+final SkyFabController controller = SkyFabController();
+
+// controller.showPanel();
+// controller.hidePanel();
+
 
 buttons.add(SkyFabSettingButton(
     iconData: Icons.phone_forwarded_rounded,
@@ -68,9 +74,9 @@ buttons.add(SkyFabSettingButton(
 @override
 Widget build(BuildContext context) {
     return SkyFab(
-        buttonList: buttons,
-        skyFabProperties: SkyFabProperties(),
-        child: body,
+        buttonList: buttons, // @required
+        child: body,        // @required
+        controller: controller, 
     );
 }
 
@@ -79,11 +85,22 @@ Widget get body => Scaffold(
         title: Text("SkyFab"),
     ),
     body: Center(
-        child: Text("Hello..."),
+        child: Column(
+            children: [
+                FlatButton(
+                onPressed: () => controller.showPanel(),
+                child: Text("Show Panel"),
+                ),
+                FlatButton(
+                onPressed: () => controller.hidePanel(),
+                child: Text("Hide Panel"),
+                ),
+            ],
+        ),
     ),
-    );
+);
 ```
 
 ## Media
 
-<kbd><img src="https://raw.githubusercontent.com/ahmeteminkara/SkyFab/main/example/ss/gif.gif" width="250" /></kbd>
+<kbd><img src="https://raw.githubusercontent.com/ahmeteminkara/SkyFab/main/example/ss/gif.gif" width="350" /></kbd>
